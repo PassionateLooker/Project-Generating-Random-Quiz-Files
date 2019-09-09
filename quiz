@@ -1,0 +1,53 @@
+#Project: Generating Random Quiz Files
+
+import random
+
+capitals = {'Alabama': 'Montgomery', 'Alaska': 'Juneau', 'Arizona': 'Phoenix',
+   'Arkansas': 'Little Rock', 'California': 'Sacramento', 'Colorado': 'Denver',
+   'Connecticut': 'Hartford', 'Delaware': 'Dover', 'Florida': 'Tallahassee',
+   'Georgia': 'Atlanta', 'Hawaii': 'Honolulu', 'Idaho': 'Boise', 'Illinois':
+   'Springfield', 'Indiana': 'Indianapolis', 'Iowa': 'Des Moines', 'Kansas':
+   'Topeka', 'Kentucky': 'Frankfort', 'Louisiana': 'Baton Rouge', 'Maine':
+   'Augusta', 'Maryland': 'Annapolis', 'Massachusetts': 'Boston', 'Michigan':
+   'Lansing', 'Minnesota': 'Saint Paul', 'Mississippi': 'Jackson', 'Missouri':
+   'Jefferson City', 'Montana': 'Helena', 'Nebraska': 'Lincoln', 'Nevada':
+   'Carson City', 'New Hampshire': 'Concord', 'New Jersey': 'Trenton',
+            'NewMexico': 'Santa Fe', 'New York': 'Albany', 'North Carolina': 'Raleigh',
+   'North Dakota': 'Bismarck', 'Ohio': 'Columbus', 'Oklahoma': 'Oklahoma City',
+   'Oregon': 'Salem', 'Pennsylvania': 'Harrisburg', 'Rhode Island': 'Providence',
+   'South Carolina': 'Columbia', 'South Dakota': 'Pierre', 'Tennessee':
+   'Nashville', 'Texas': 'Austin', 'Utah': 'Salt Lake City', 'Vermont':
+   'Montpelier', 'Virginia': 'Richmond', 'Washington': 'Olympia',
+            'WestVirginia': 'Charleston', 'Wisconsin': 'Madison', 'Wyoming': 'Cheyenne'}
+
+
+for filenum in range(10):
+    qFile=open('quiz%s.txt' %(filenum+1),'w')
+    ansFile=open('ansFile%s.txt' %(filenum+1),'w')
+
+    qFile.write('Name:\n\nDate:\n\n')
+    qFile.write((' '*80) +'------------QUIZ%s------------' %(filenum+1))
+
+    caps=list(capitals.keys())
+    random.shuffle(caps)
+
+    for filenum in range(10):
+        correctAns=capitals[caps[filenum]]
+        wrongAns=list(capitals.values())
+        del wrongAns[wrongAns.index(correctAns)]
+        wrongAns=random.sample(wrongAns,3)
+        ansOptions=wrongAns+[correctAns]
+        random.shuffle(ansOptions)
+
+        qFile.write('\n%s What is the capital of %s?\n'%(filenum+1,caps[filenum]))
+        for i in range(4):
+            qFile.write('%s. %s\n'%('ABCB'[i],ansOptions[i]))
+        qFile.write('\n')
+
+        ansFile.write('%s. %s\n'%(filenum+1,'ABCD'[ansOptions.index(correctAns)]))
+
+    qFile.close()
+    ansFile.close()
+
+
+
